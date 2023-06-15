@@ -39,12 +39,11 @@ public class ProductServiceTests {
     @Mock
     CategoryRepository categoryRepository;
 
-    private long existingId;
-    private long nonExistingId;
-    private long dependentId;
+    private Long existingId;
+    private Long nonExistingId;
+    private Long dependentId;
     private PageImpl<Product> page;
     private Product product;
-
     private Category category;
 
     @BeforeEach
@@ -67,6 +66,7 @@ public class ProductServiceTests {
 
         Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(product));
         Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
+
         Mockito.when(repository.existsById(existingId)).thenReturn(true);
         Mockito.when(repository.existsById(nonExistingId)).thenReturn(false);
         Mockito.when(repository.existsById(dependentId)).thenReturn(true);
