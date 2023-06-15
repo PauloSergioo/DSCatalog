@@ -23,6 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import java.util.List;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProductResource.class)
@@ -89,8 +90,8 @@ public class ProductResourceTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.name").exists());
     }
 
     @Test
@@ -103,9 +104,9 @@ public class ProductResourceTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept((MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description").exists());
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.description").exists());
     }
 
     @Test
@@ -134,9 +135,9 @@ public class ProductResourceTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/products/{id}", existingId)
                 .accept((MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description").exists());
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.description").exists());
     }
 
     @Test
