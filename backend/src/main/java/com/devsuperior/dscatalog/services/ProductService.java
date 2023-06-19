@@ -57,24 +57,22 @@ public class ProductService {
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
             return new ProductDTO(entity);
-        }
-        catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found" + id);
         }
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
-            if (!repository.existsById(id)) {
-                throw new ResourceNotFoundException("Resource not found");
-            }
-            try {
-                repository.deleteById(id);
-            }
-            catch (DataIntegrityViolationException e) {
-                throw new DataBaseException("Failure of referential integrity");
-            }
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Resource not found");
         }
+        try {
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException("Failure of referential integrity");
+        }
+    }
 
     private void copyDtoToEntity(ProductDTO dto, Product entity) {
         entity.setName(dto.getName());

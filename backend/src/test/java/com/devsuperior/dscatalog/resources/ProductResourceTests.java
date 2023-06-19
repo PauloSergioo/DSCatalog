@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -73,6 +74,7 @@ public class ProductResourceTests {
         mockMvc.perform(MockMvcRequestBuilders.delete("/products/{id}", existingId))
                 .andExpect(status().isNoContent());
     }
+
     @Test
     public void deleteShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
 
@@ -86,9 +88,9 @@ public class ProductResourceTests {
         String jsonBody = objectMapper.writeValueAsString(productDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/products")
-                .content(jsonBody)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").exists());
@@ -100,9 +102,9 @@ public class ProductResourceTests {
         String jsonBody = objectMapper.writeValueAsString(productDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/products/{id}", existingId)
-                .content(jsonBody)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept((MediaType.APPLICATION_JSON)))
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept((MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").exists())
@@ -115,9 +117,9 @@ public class ProductResourceTests {
         String jsonBody = objectMapper.writeValueAsString(productDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/products/{id}", nonExistingId)
-                .content(jsonBody)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept((MediaType.APPLICATION_JSON)))
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept((MediaType.APPLICATION_JSON)))
                 .andExpect(status().isNotFound());
     }
 
@@ -125,7 +127,7 @@ public class ProductResourceTests {
     public void findAllShouldReturnPage() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/products")
-                .accept((MediaType.APPLICATION_JSON)))
+                        .accept((MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk());
     }
 
@@ -133,7 +135,7 @@ public class ProductResourceTests {
     public void findByIdShouldReturnProductWhenIdExists() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/products/{id}", existingId)
-                .accept((MediaType.APPLICATION_JSON)))
+                        .accept((MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").exists())
@@ -144,7 +146,7 @@ public class ProductResourceTests {
     public void findByIdShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/products/{id}", nonExistingId)
-                .accept((MediaType.APPLICATION_JSON)))
+                        .accept((MediaType.APPLICATION_JSON)))
                 .andExpect(status().isNotFound());
     }
 

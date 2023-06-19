@@ -42,7 +42,7 @@ public class ProductResourceIT {
     public void findAllShouldReturnSortedPageWhenSortByName() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/products?page=0&size=12&sort=name,asc")
-                .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements").value(countTotalProducts))
                 .andExpect(jsonPath("$.content").exists())
@@ -62,9 +62,9 @@ public class ProductResourceIT {
         String expectedDescription = productDTO.getDescription();
 
         mockMvc.perform(MockMvcRequestBuilders.put("/products/{id}", existingId)
-                .content(jsonBody)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept((MediaType.APPLICATION_JSON)))
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept((MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(existingId))
                 .andExpect(jsonPath("$.name").value(expectedName))

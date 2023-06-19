@@ -17,6 +17,7 @@ public class CategoryResource {
 
     @Autowired
     private CategoryService service;
+
     @GetMapping
     public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
         Page<CategoryDTO> list = service.findAllPaged(pageable);

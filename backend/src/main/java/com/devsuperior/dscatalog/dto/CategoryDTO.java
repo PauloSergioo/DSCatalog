@@ -4,7 +4,7 @@ import com.devsuperior.dscatalog.entities.Category;
 
 import java.io.Serializable;
 
-public class CategoryDTO  implements Serializable {
+public class CategoryDTO implements Serializable {
 
     private Long id;
     private String name;
