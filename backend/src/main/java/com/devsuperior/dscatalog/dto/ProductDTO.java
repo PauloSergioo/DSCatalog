@@ -1,115 +1,120 @@
 package com.devsuperior.dscatalog.dto;
 
-import com.devsuperior.dscatalog.entities.Category;
-import com.devsuperior.dscatalog.entities.Product;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
-
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ProductDTO implements Serializable {
+import com.devsuperior.dscatalog.entities.Category;
+import com.devsuperior.dscatalog.entities.Product;
 
-    private Long id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
-    @Size(min = 5, max = 60, message = "Deve ter entre 5 e 60 caracteres")
-    @NotBlank(message = "Campo requerido")
-    private String name;
-    private String description;
+public class ProductDTO {
 
-    @Positive(message = "Preço deve ser um valor positivo")
-    private Double price;
-    private String imgUrl;
+	private Long id;
+	
+	@Size(min = 5, max = 60, message = "Deve ter entre 5 e 60 caracteres")
+	@NotBlank(message = "Campo requerido")
+	private String name;
 
-    @PastOrPresent(message = "A data do produto não pode ser futura")
-    private Instant date;
+	@NotBlank(message = "Campo requerido")
+	private String description;
+	
+	@Positive(message = "Preço deve ser um valor positivo")
+	private Double price;
+	
+	private String imgUrl;
+	
+	@PastOrPresent(message = "A data do produto não pode ser futura")
+	private Instant date;
+	
+	@NotEmpty(message = "Produto sem categoria não é permitido")
+	private List<CategoryDTO> categories = new ArrayList<>();
+	
+	public ProductDTO() {
+	}
 
-    private List<CategoryDTO> categories = new ArrayList<>();
+	public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.imgUrl = imgUrl;
+		this.date = date;
+	}
+	
+	public ProductDTO(Product entity) {
+		this.id = entity.getId();
+		this.name = entity.getName();
+		this.description = entity.getDescription();
+		this.price = entity.getPrice();
+		this.imgUrl = entity.getImgUrl();
+		this.date = entity.getDate();
+	}
+	
+	public ProductDTO(Product entity, Set<Category> categories) {
+		this(entity);
+		categories.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
+	}
 
-    public ProductDTO() {
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imgUrl = imgUrl;
-        this.date = date;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public ProductDTO(Product entity) {
-        id = entity.getId();
-        name = entity.getName();
-        description = entity.getDescription();
-        price = entity.getPrice();
-        imgUrl = entity.getImgUrl();
-        date = entity.getDate();
-    }
+	public String getName() {
+		return name;
+	}
 
-    public ProductDTO(Product entity, Set<Category> categories) {
-        this(entity);
-        categories.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Double getPrice() {
+		return price;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getImgUrl() {
+		return imgUrl;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
-    public Double getPrice() {
-        return price;
-    }
+	public Instant getDate() {
+		return date;
+	}
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+	public void setDate(Instant date) {
+		this.date = date;
+	}
 
-    public String getImgUrl() {
-        return imgUrl;
-    }
+	public List<CategoryDTO> getCategories() {
+		return categories;
+	}
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public Instant getDate() {
-        return date;
-    }
-
-    public void setDate(Instant date) {
-        this.date = date;
-    }
-
-    public List<CategoryDTO> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<CategoryDTO> categories) {
-        this.categories = categories;
-    }
+	public void setCategories(List<CategoryDTO> categories) {
+		this.categories = categories;
+	}
 }
