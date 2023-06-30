@@ -1,6 +1,8 @@
 package com.devsuperior.dscatalog.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,9 +27,9 @@ public class CategoryService {
 	private CategoryRepository repository;
 	
 	@Transactional(readOnly = true)
-	public Page<CategoryDTO> findAllPaged(Pageable pageable) {
-		Page<Category> list = repository.findAll(pageable);
-		return list.map(x -> new CategoryDTO(x));
+	public List<CategoryDTO> findAll() {
+		List<Category> list = repository.findAll();
+		return list.stream().map(CategoryDTO::new).collect(Collectors.toList());
 	}
 
 	@Transactional(readOnly = true)
