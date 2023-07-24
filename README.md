@@ -18,8 +18,7 @@ profissional iniciante deve saber construir.
 ### Visão geral do sistema
 
 Este é o projeto principal da trilha do Java Spring Expert. 
-O projeto consiste em um sistema de catálogo de produtos, onde o objetivo do projeto é ensinar aos alunos
-como estruturar com projeto completo com camadas, boas práticas, validação, segurança, tratamento de exceções, consultas ao banco de dados,
+O projeto consiste em um sistema de catálogo de produtos, onde o objetivo é estruturar o projeto com camadas, boas práticas, validação, segurança, tratamento de exceções, consultas ao banco de dados,
 testes automatizados, dentre outros recursos. 
 
 ##
